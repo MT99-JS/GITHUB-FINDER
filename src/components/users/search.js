@@ -14,6 +14,7 @@ class Search extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.searchUsers(this.state.text);
+
     this.setState({
       text: "",
     });
@@ -34,12 +35,22 @@ class Search extends Component {
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               onChange={this.onChange}
+              required
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            search
+          <button type="submit" className="btn btn-primary btn-block">
+            Search
           </button>
         </form>
+        {this.props.showClear && (
+          <button
+            type="submit"
+            className="btn btn-danger btn-block"
+            onClick={this.props.clearUsers}
+          >
+            Clear
+          </button>
+        )}
       </>
     );
   }
