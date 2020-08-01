@@ -1,17 +1,17 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import UserItem from "./UserItem";
+import GithubContext from "../../context/github/GithubContext";
 
-
-class User extends Component {
-  render() {
-    return (
-      <div>
-        {this.props.users.map((user) => (
-          <UserItem key={user.id} user={user} />
-        ))}
-      </div>
-    );
-  }
-}
+const User = () => {
+  const githubContext = useContext(GithubContext);
+  const { users } = githubContext;
+  return (
+    <div>
+      {users.map((user) => (
+        <UserItem key={user.id} user={user} />
+      ))}
+    </div>
+  );
+};
 
 export default User;
