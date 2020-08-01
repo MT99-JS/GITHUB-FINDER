@@ -1,59 +1,51 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class Search extends Component {
-  state = {
-    text: "",
+const Search = ({ searchUsers, clearUsers, showClear }) => {
+  const [text, setText] = useState("");
+
+  const onChange = (e) => {
+    setText(e.target.value);
   };
 
-  onChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    this.props.searchUsers(this.state.text);
+    searchUsers(text);
 
-    this.setState({
-      text: "",
-    });
+    setText("");
   };
 
-  render() {
-    return (
-      <>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label htmlFor="search">Search</label>
-            <input
-              type="text"
-              name="text"
-              className="form-control"
-              placeholder="Search Users..."
-              value={this.state.text}
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              onChange={this.onChange}
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary btn-block">
-            Search
-          </button>
-        </form>
-        {this.props.showClear && (
-          <button
-            type="submit"
-            className="btn btn-danger btn-block"
-            onClick={this.props.clearUsers}
-          >
-            Clear
-          </button>
-        )}
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <form onSubmit={onSubmit}>
+        <div className="form-group">
+          <label htmlFor="search">Search</label>
+          <input
+            type="text"
+            name="text"
+            className="form-control"
+            placeholder="Search Users..."
+            value={text}
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            onChange={onChange}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-primary btn-block">
+          Search
+        </button>
+      </form>
+      {showClear && (
+        <button
+          type="submit"
+          className="btn btn-danger btn-block"
+          onClick={clearUsers}
+        >
+          Clear
+        </button>
+      )}
+    </>
+  );
+};
 
 export default Search;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./useritem.css";
+import { Link } from "react-router-dom";
 
 class UserItem extends Component {
   render() {
@@ -7,10 +8,8 @@ class UserItem extends Component {
     return (
       <div className="container">
         <img src={avatar_url} alt="" />
-
-        <a href={html_url}>
-          <h2>{login}</h2>
-        </a>
+        <h2>{login}</h2>
+        <Link to={`/user/${login}`}>Details</Link>
       </div>
     );
   }
