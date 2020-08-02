@@ -23,15 +23,30 @@ const GithubState = (props) => {
       payload: res.data.items,
     });
   };
-  //   const getUser = async (username) => {
-  //     const res = await axios.get(
-  //       `https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-  //     );
-  //     dispatch({
-  //       type: GET_USERS,
-  //       payload: res.data,
-  //     });
-  //   };
+  const getUser = async (username) => {
+    const res = await axios.get(
+      `https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+    dispatch({
+      type: GET_USERS,
+      payload: res.data,
+    });
+  };
+
+  const getRepo = async (username) => {
+    const res = await axios.get(
+      `https://api.github.com/users/${username}/repos?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+    dispatch({
+      type: GET_REPOS,
+      payload: res.data,
+    });
+  };
+  const clearUsers = (e) => {
+    dispatch({
+      type: CLEAR_USERS,
+    });
+  };
 
   return (
     <GithubContext.Provider
@@ -40,6 +55,9 @@ const GithubState = (props) => {
         user: state.user,
         repos: state.repos,
         searchUsers,
+        getUser,
+        getRepo,
+        clearUsers,
       }}
     >
       {props.children}

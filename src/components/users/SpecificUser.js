@@ -1,8 +1,12 @@
-import React, { useEffects, useEffect } from "react";
+import React, { useEffects, useEffect, useContext } from "react";
 import axios from "axios";
 import Repos from "../repos/Repos";
+import GithubContext from "../../context/github/GithubContext";
 
-const SpecificUser = ({ user, match, getUser, getRepo, repos }) => {
+const SpecificUser = ({ match }) => {
+  const githubContext = useContext(GithubContext);
+
+  const { getUser, user, getRepo, repos } = githubContext;
   useEffect(() => {
     getUser(match.params.login);
     getRepo(match.params.login);

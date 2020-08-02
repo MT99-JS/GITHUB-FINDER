@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
 import GithubContext from "../../context/github/GithubContext";
 
-const Search = ({ searchUsers, clearUsers, showClear }) => {
+const Search = ({ showClear }) => {
   const githubContext = useContext(GithubContext);
+  const { searchUsers, clearUsers, users } = githubContext;
   const [text, setText] = useState("");
 
   const onChange = (e) => {
@@ -11,7 +12,7 @@ const Search = ({ searchUsers, clearUsers, showClear }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    githubContext.searchUsers(text);
+    searchUsers(text);
 
     setText("");
   };
@@ -37,7 +38,7 @@ const Search = ({ searchUsers, clearUsers, showClear }) => {
           Search
         </button>
       </form>
-      {showClear && (
+      {users.length > 0 && (
         <button
           type="submit"
           className="btn btn-danger btn-block"
